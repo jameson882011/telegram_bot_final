@@ -413,7 +413,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "Выберите вид работ:",
                 reply_markup=get_work_type_keyboard()
             )
-            # Убираем клавиатуру с геолокацией
+            # Убираем клавиатуру с геолокацией, но не отправляем лишнее сообщение
             await update.message.reply_text(
                 "Выберите вид работ:",
                 reply_markup=ReplyKeyboardRemove()
@@ -462,6 +462,7 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "📍 Местоположение получено. Выберите вид работ:",
             reply_markup=get_work_type_keyboard()
         )
+        # Убираем клавиатуру
         await update.message.reply_text(
             "Выберите вид работ:",
             reply_markup=ReplyKeyboardRemove()
