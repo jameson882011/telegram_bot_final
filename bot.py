@@ -409,13 +409,14 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
         elif step == "address":
             user_data["order_address"] = text
             user_data["order_step"] = "work_type"
+            # Показываем кнопки с видами работ без лишнего текста
             await update.message.reply_text(
                 "Выберите вид работ:",
                 reply_markup=get_work_type_keyboard()
             )
             # Убираем клавиатуру с геолокацией
             await update.message.reply_text(
-                "Выберите вид работ:",
+                "⌨️",
                 reply_markup=ReplyKeyboardRemove()
             )
         elif step == "work_type_custom":
@@ -458,12 +459,14 @@ async def handle_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
         maps_link = f"https://www.google.com/maps?q={location.latitude},{location.longitude}"
         user_data["order_address"] = maps_link
         user_data["order_step"] = "work_type"
-        await update.message.reply_text(
-            "📍 Местоположение получено. Выберите вид работ:",
-            reply_markup=get_work_type_keyboard()
-        )
+        # Показываем кнопки с видами работ без лишнего текста
         await update.message.reply_text(
             "Выберите вид работ:",
+            reply_markup=get_work_type_keyboard()
+        )
+        # Убираем клавиатуру с геолокацией
+        await update.message.reply_text(
+            "⌨️",
             reply_markup=ReplyKeyboardRemove()
         )
     else:
