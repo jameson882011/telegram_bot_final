@@ -191,19 +191,12 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("work_"):
         work_type = data.split("_")[1]
-        if work_type == "other":
-            await query.edit_message_text(
-                "Напишите свой вариант:",
-                reply_markup=get_cancel_keyboard()
-            )
-            user_data["order_step"] = "work_type_custom"
-        else:
-            user_data["order_work_type"] = work_type
-            user_data["order_step"] = "area"
-            await query.edit_message_text(
-                "Укажите объём работ:",
-                reply_markup=get_area_keyboard()
-            )
+        user_data["order_work_type"] = work_type
+        user_data["order_step"] = "area"
+        await query.edit_message_text(
+            "Укажите объём работ:",
+            reply_markup=get_area_keyboard()
+        )
         return
 
     elif data.startswith("area_"):
@@ -420,6 +413,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "Выберите вид работ:",
                 reply_markup=get_work_type_keyboard()
             )
+            # Убираем клавиатуру с геолокацией
             await update.message.reply_text(
                 "Выберите вид работ:",
                 reply_markup=ReplyKeyboardRemove()
